@@ -43,5 +43,20 @@
     }
   ],
   "name": "southernutahcares",
-  "description": "SouthernUtahCares: An Ionic project"
+  "description": "SouthernUtahCares: An Ionic project",
+  "version": "1.0.0",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michaeldemille/SouthernUtahCares.git"
+  },
+  "author": "Michael DeMille",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/michaeldemille/SouthernUtahCares/issues"
+  },
+  "homepage": "https://github.com/michaeldemille/SouthernUtahCares"
 }
