@@ -11,11 +11,7 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'build/pages/directory/directory.html',
 })
 export class DirectoryPage {
-  static get parameters() {
-    return [[NavController]];
-  }
+  constructor() {
 
-  constructor(nav) {
-    this.nav = nav;
   }
 }

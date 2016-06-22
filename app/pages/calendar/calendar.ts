@@ -11,11 +11,7 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'build/pages/calendar/calendar.html',
 })
 export class CalendarPage {
-  static get parameters() {
-    return [[NavController]];
-  }
+ constructor() {
 
-  constructor(nav) {
-    this.nav = nav;
   }
 }

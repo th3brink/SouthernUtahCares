@@ -3,6 +3,8 @@ import {ionicBootstrap, Platform, MenuController, Nav} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {HomePage} from './pages/home/home';
 import {NewsFeed} from './pages/newsfeed/newsfeed';
+import {CalendarPage} from './pages/calendar/calendar';
+import {DirectoryPage} from './pages/directory/directory';
 
 
 @Component({
@@ -24,7 +26,9 @@ class MyApp {
     // set our app's pages
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'News Feed', component: NewsFeed }
+      { title: 'News Feed', component: NewsFeed },
+      { title: 'Calendar', component: CalendarPage },
+      { title: 'Directory', component: DirectoryPage }
     ];
   }
 
