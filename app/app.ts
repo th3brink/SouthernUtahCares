@@ -1,6 +1,8 @@
 import {Component, ViewChild} from '@angular/core';
+import {HTTP_PROVIDERS} from '@angular/http';
 import {ionicBootstrap, Platform, MenuController, Nav} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
+
 import {HomePage} from './pages/home/home';
 import {NewsFeed} from './pages/newsfeed/newsfeed';
 import {CalendarPage} from './pages/calendar/calendar';
@@ -8,7 +10,8 @@ import {DirectoryPage} from './pages/directory/directory';
 
 
 @Component({
-  templateUrl: 'build/app.html'
+  templateUrl: 'build/app.html',
+  providers: [HTTP_PROVIDERS]
 })
 class MyApp {
   @ViewChild(Nav) nav: Nav;

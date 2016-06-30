@@ -1,36 +1,36 @@
 import {Component} from '@angular/core';
+import {Http} from '@angular/http';
+import {Inject} from '@angular/core'
 import {NavController, NavParams} from 'ionic-angular';
-import {ItemDetailsPage} from '../item-details/item-details';
+import {Post} from '../post/post';
+
 
 
 @Component({
-  templateUrl: 'build/pages/newsfeed/newsfeed.html'
+  templateUrl: 'build/pages/newsfeed/newsfeed.html',
+
 })
 export class NewsFeed {
-  selectedItem: any;
-  icons: string[];
-  items: Array<{title: string, note: string, icon: string}>;
+  http: Http;
+  posts: any;
 
-  constructor(private nav: NavController, navParams: NavParams) {
-    // If we navigated to this page, we will have an item available as a nav param
-    this.selectedItem = navParams.get('item');
+  constructor(@Inject(Http) httpService, private nav: NavController, navParams: NavParams) {
+    this.http = httpService;
 
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    'american-football', 'boat', 'bluetooth', 'build'];
+    this.http.get("http://southernutahcares.com/wp-json/wp/v2/posts?filter[category_name]=newsfeed").subscribe(data => {
+      console.log("got JSON data");
+      this.posts = JSON.parse(data._body);
+      console.log(this.posts);
+    }, error => {
+    console.log("Error retrieving data");
+    });
+  }
 
-    this.items = [];
-    for(let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
+openPost(post) {
+  console.log('hit');
+    this.nav.push(Post, {
+      post: post
+    });
     }
   }
 
-  itemTapped(event, item) {
-    this.nav.push(ItemDetailsPage, {
-      item: item
-    });
-  }
-}
