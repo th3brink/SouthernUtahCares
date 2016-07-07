@@ -7,7 +7,7 @@ import {DirectoryService} from '../../providers/directory-service/directory-serv
 
 
 @Component({
-  templateUrl: 'build/pages/newsfeed/newsfeed.html',
+  templateUrl: 'build/pages/directory/directory.html',
   providers: [DirectoryService]
 })
 export class DirectoryPage {

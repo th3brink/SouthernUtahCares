@@ -7,7 +7,7 @@ import {PhoneBookService} from '../../providers/phone-book-service/phone-book-se
 
 
 @Component({
-  templateUrl: 'build/pages/newsfeed/newsfeed.html',
+  templateUrl: 'build/pages/phonebook/phonebook.html',
   providers: [PhoneBookService]
 })
 export class PhoneBookPage {
