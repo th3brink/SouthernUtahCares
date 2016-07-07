@@ -7,6 +7,7 @@ import {HomePage} from './pages/home/home';
 import {NewsFeed} from './pages/newsfeed/newsfeed';
 import {CalendarPage} from './pages/calendar/calendar';
 import {DirectoryPage} from './pages/directory/directory';
+import {PhoneBookPage} from './pages/phonebook/phonebook';
 
 
 @Component({
@@ -31,7 +32,8 @@ class MyApp {
       { title: 'Home', component: HomePage },
       { title: 'News Feed', component: NewsFeed },
       { title: 'Calendar', component: CalendarPage },
-      { title: 'Directory', component: DirectoryPage }
+      { title: 'Directory', component: DirectoryPage },
+      { title: 'Phone Book', component: PhoneBookPage }
     ];
   }
 

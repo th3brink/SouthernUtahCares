@@ -5,6 +5,11 @@
   <ion-title>Calendar</ion-title>
 </ion-navbar>
 
-<ion-content padding class="calendar">
-  
+<ion-content>
+  <ion-list *ngFor="let post of posts" (click)="openPost(post)">
+    <ion-card>
+      <div [innerHTML]="post.title.rendered" ></div>
+    <div [innerHTML]="post.content.rendered"></div>
+    </ion-card>
+  </ion-list>
 </ion-content>

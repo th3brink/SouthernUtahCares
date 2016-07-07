@@ -3,23 +3,23 @@ import {Http} from '@angular/http';
 import {Inject} from '@angular/core'
 import {NavController, NavParams} from 'ionic-angular';
 import {Post} from '../post/post';
-import {DirectoryService} from '../../providers/directory-service/directory-service';
+import {PhoneBookService} from '../../providers/phone-book-service/phone-book-service';
 
 
 @Component({
   templateUrl: 'build/pages/newsfeed/newsfeed.html',
-  providers: [DirectoryService]
+  providers: [PhoneBookService]
 })
-export class DirectoryPage {
+export class PhoneBookPage {
   public posts: any;
 
-  constructor(public directoryService: DirectoryService, private nav: NavController, navParams: NavParams) {
+  constructor(public phoneBookService: PhoneBookService, private nav: NavController, navParams: NavParams) {
    
    this.loadPosts();
   }
 
 loadPosts(){
-  this.directoryService.load()
+  this.phoneBookService.load()
   .then(data => {
     this.posts = data;
   });
