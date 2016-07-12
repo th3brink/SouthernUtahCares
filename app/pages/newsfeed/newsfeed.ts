@@ -14,22 +14,43 @@ export class NewsFeed {
   public posts: any;
 
   constructor(public postService: PostService, private nav: NavController, navParams: NavParams) {
-   
-   this.loadPosts();
+
+    this.loadPosts();
   }
 
-loadPosts(){
-  this.postService.load()
-  .then(data => {
-    this.posts = data;
-  });
-}
+  loadPosts() {
+    this.postService.load()
+      .then(data => {
+        this.posts = data;
+      });
+  }
 
-openPost(post) {
-  console.log('hit');
+  openPost(post) {
+    console.log('hit');
     this.nav.push(Post, {
       post: post
     });
-    }
   }
+
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+    this.postService.reload()
+      .then(data => {
+        this.posts = data;
+      });
+    refresher.complete();
+  }
+
+  doInfinite(infinitescroll) {
+    console.log('Begin async operation');
+    this.postService.load()
+      .then(data => {
+        // this.posts = data;
+        this.posts = this.posts.concat(data);
+      });
+    infinitescroll.complete();
+
+  }
+
+}
 

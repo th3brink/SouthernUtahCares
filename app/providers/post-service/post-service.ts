@@ -11,29 +11,39 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class PostService {
   data: any;
+  page: number;
 
   constructor(private http: Http) {
     this.data = null;
+    this.page = 0;
+  }
+
+  reload() {
+    this.page=0;
+    return this.load()
   }
 
   load() {
-    if (this.data) {
-      // already loaded data
-      return Promise.resolve(this.data);
-    }
+    this.page++
+    // if (this.data) {
+    //   // already loaded data
+    //   return Promise.resolve(this.data);
+    // }
 
     // don't have the data yet
     return new Promise(resolve => {
       // We're using Angular Http provider to request the data,
       // then on the response it'll map the JSON data to a parsed JS object.
       // Next we process the data and resolve the promise with the new data.
-      this.http.get('http://southernutahcares.com/wp-json/wp/v2/posts?filter[category_name]=newsfeed')
+      this.http.get('http://southernutahcares.com/wp-json/wp/v2/posts?filter[category_name]=newsfeed&page=' + this.page)
         .map(res => res.json())
         .subscribe(data => {
           // we've got back the raw data, now generate the core schedule data
           // and save the data for later reference
           this.data = data;
           resolve(this.data);
+          console.log(this.page)
+          console.log(this.data)
         });
     });
   }
