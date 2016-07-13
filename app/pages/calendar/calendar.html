@@ -7,9 +7,11 @@
 
 <ion-content>
   <ion-list *ngFor="let post of posts" (click)="openPost(post)">
-    <ion-card>
+    <ion-card *ngIf="post.start > today">
       <div [innerHTML]="post.title.rendered" ></div>
-    <div [innerHTML]="post.content.rendered"></div>
+    <h1><div [innerHTML]="post.start"></div></h1>
+     <div [innerHTML]="today"></div>
+     <div [innerHTML]="post.content.rendered"></div>
     </ion-card>
   </ion-list>
 </ion-content>

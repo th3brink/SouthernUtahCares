@@ -12,18 +12,33 @@ import {CalendarService} from '../../providers/calendar-service/calendar-service
 })
 export class CalendarPage {
   public posts: any;
+  public currentevents: any;
+  public today: any;
 
   constructor(public calendarService: CalendarService, private nav: NavController, navParams: NavParams) {
    
+   this.today = new Date();
+   this.today = this.today.toLocaleString();
    this.loadPosts();
+    
   }
 
 loadPosts(){
   this.calendarService.load()
   .then(data => {
+    this.organizePosts(data);
     this.posts = data;
+
   });
 }
+
+organizePosts(data){
+  console.log(data);
+  this.calendarService.organize(data)
+    this.posts = data;
+    console.log(this.posts)
+  }
+
 
 openPost(post) {
   console.log('hit');
