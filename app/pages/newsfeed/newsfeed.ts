@@ -26,14 +26,12 @@ export class NewsFeed {
   }
 
   openPost(post) {
-    console.log('hit');
     this.nav.push(Post, {
       post: post
     });
   }
 
   doRefresh(refresher) {
-    console.log('Begin async operation', refresher);
     this.postService.reload()
       .then(data => {
         this.posts = data;
@@ -42,7 +40,6 @@ export class NewsFeed {
   }
 
   doInfinite(infinitescroll) {
-    console.log('Begin async operation');
     this.postService.load()
       .then(data => {
         // this.posts = data;

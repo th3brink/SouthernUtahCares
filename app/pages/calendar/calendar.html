@@ -3,15 +3,49 @@
     <ion-icon name="menu"></ion-icon>
   </button>
   <ion-title>Calendar</ion-title>
+  <button menuToggle="right" right>
+    <ion-icon name="funnel"></ion-icon>
+  </button>
 </ion-navbar>
 
 <ion-content>
-  <ion-list *ngFor="let post of posts" (click)="openPost(post)">
-    <ion-card *ngIf="post.start > today">
-      <div [innerHTML]="post.title.rendered" ></div>
-    <h1><div [innerHTML]="post.start"></div></h1>
-     <div [innerHTML]="today"></div>
-     <div [innerHTML]="post.content.rendered"></div>
+
+  <ion-item>
+    <ion-label>Charity Events</ion-label>
+    <ion-toggle checked=true [(ngModel)]="fctoggle" (ionChange)="fctoggleswitch()"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-label>Community Events</ion-label>
+    <ion-toggle checked=true [(ngModel)]="fcotoggle" (ionChange)="fcotoggleswitch()"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-label>Classes</ion-label>
+    <ion-toggle checked=true [(ngModel)]="fcltoggle" (ionChange)="fcltoggleswitch()"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-label>Arts</ion-label>
+    <ion-toggle checked=true [(ngModel)]="fatoggle" (ionChange)="fatoggleswitch()"></ion-toggle>
+  </ion-item>
+
+  <ion-list *ngFor="let post of posts; let i = index" (click)="openPost(post)">
+    <ion-card *ngIf="post.start.getTime() > today.getTime() && 
+      (post.term_taxonomy_id==filtercharity || 
+      post.term_taxonomy_id==filtercommunity || 
+      post.term_taxonomy_id==filterclasses || 
+      post.term_taxonomy_id==filterarts ) && headerDate(posts, i)">
+      <div class="headercarddate" >{{month[post.start.getMonth()]}} {{post.start.getDate()}} ( {{day[post.start.getDay()]}} )</div>
+    </ion-card>
+    <ion-card *ngIf="post.start.getTime() > today.getTime() && 
+      (post.term_taxonomy_id==filtercharity || 
+      post.term_taxonomy_id==filtercommunity || 
+      post.term_taxonomy_id==filterclasses || 
+      post.term_taxonomy_id==filterarts )">
+      <div class="cardimage"><img src={{post.thumbnail}} /></div>
+      <div class="cardcontainer">
+        <div class="cardtitle" [innerHTML]="post.title.rendered"></div>
+        <div class="carddate" [innerHTML]="post.start.toLocaleString()"></div>
+        <div class="cardcontent" [innerHTML]="parseContent(post.content.rendered).substring(0,150) + '...'"></div>
+      </div>
     </ion-card>
   </ion-list>
 </ion-content>

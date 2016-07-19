@@ -6,8 +6,9 @@
 </ion-navbar>
 
 <ion-content>
- <div>
+ <ion-card>
+    <div class="cardimage"><img src={{post.thumbnail}} /></div>
     <div [innerHTML]="post.title.rendered" ></div>
     <div [innerHTML]="post.content.rendered"></div>
-  </div>
+  </ion-card>
 </ion-content>

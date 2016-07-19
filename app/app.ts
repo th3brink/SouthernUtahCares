@@ -8,6 +8,7 @@ import {NewsFeed} from './pages/newsfeed/newsfeed';
 import {CalendarPage} from './pages/calendar/calendar';
 import {DirectoryPage} from './pages/directory/directory';
 import {PhoneBookPage} from './pages/phonebook/phonebook';
+import {CalendarService} from './providers/calendar-service/calendar-service';
 
 
 @Component({
@@ -23,7 +24,8 @@ class MyApp {
 
   constructor(
     private platform: Platform,
-    private menu: MenuController
+    private menu: MenuController,
+    public calendarService: CalendarService
   ) {
     this.initializeApp();
 
@@ -46,6 +48,7 @@ class MyApp {
   }
 
   openPage(page) {
+    console.log(this.calendarService.fctoggle);
     // close the menu when clicking a link from the menu
     this.menu.close();
     // navigate to the new page if it is not the current page
@@ -53,4 +56,6 @@ class MyApp {
   }
 }
 
-ionicBootstrap(MyApp);
+ionicBootstrap(MyApp, [
+  CalendarService
+  ]);

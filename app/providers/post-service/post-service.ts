@@ -42,8 +42,6 @@ export class PostService {
           // and save the data for later reference
           this.data = data;
           resolve(this.data);
-          console.log(this.page)
-          console.log(this.data)
         });
     });
   }

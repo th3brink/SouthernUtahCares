@@ -1,4 +1,4 @@
-<ion-menu [content]="content" persistent="true">
+<ion-menu [content]="content" persistent="true" side="left">
 
   <ion-toolbar>
     <ion-title>Southern Utah Cares</ion-title>
@@ -12,6 +12,23 @@
     </ion-list>
   </ion-content>
 
+</ion-menu>
+
+<ion-menu [content]="content" side="right">
+
+  <ion-toolbar>
+    <ion-title>Filters</ion-title>
+  </ion-toolbar>
+
+  <ion-content>
+    <ion-list >
+      <ion-item>
+        <ion-label>Charity Events</ion-label>
+        <ion-toggle [(ngModel)]="calendarService.fctoggle" (ionChange)="calendarService.fctoggleswitch()"></ion-toggle>
+      </ion-item>
+
+    </ion-list>
+  </ion-content>
 </ion-menu>
 
 <ion-nav [root]="rootPage" #content></ion-nav>
