@@ -1,19 +1,23 @@
-import {Component} from '@angular/core';
+import {Component, Input } from '@angular/core';
 import {Http} from '@angular/http';
 import {Inject} from '@angular/core'
 import {NavController, NavParams, MenuController} from 'ionic-angular';
-import {Post} from '../post/post';
+import {Subscription} from 'rxjs/Subscription';
+
+// import {MyApp} from '../../app';
+import {Event} from '../event/event';
 import {CalendarService} from '../../providers/calendar-service/calendar-service';
 
 @Component({
   templateUrl: 'build/pages/calendar/calendar.html',
-  providers: [CalendarService]
+  // directives: [MyApp],
+  providers: [CalendarService],
 })
 export class CalendarPage {
   public posts: any;
   public currentevents: any;
   public today: any;
-  public filtercharity: any;
+  @Input() filtercharity: any;
   public fctoggle: any;
   public filtercommunity: any;
   public fcotoggle: any;
@@ -23,11 +27,12 @@ export class CalendarPage {
   public fatoggle: any;
   public month: any;
   public day: any;
+subscription:Subscription;
 
   constructor(public calendarService: CalendarService, private nav: NavController, navParams: NavParams) {
 
     this.today = new Date();
-    this.filtercharity = "71";
+    // this.filtercharity = "71";
     this.filtercommunity = "70";
     this.filterclasses = "90";
     this.filterarts = "66";
@@ -39,21 +44,24 @@ export class CalendarPage {
     this.month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
     this.day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
-  }
+calendarService.filtercharity$.subscribe(filtercharity => this.filtercharity = filtercharity);
+}
+  fctoggleswitch(filtercharity) {
+    this.filtercharity = filtercharity;
+    console.log(this.filtercharity);
 
-  fctoggleswitch() {
-    if (this.fctoggle) {
-      this.filtercharity = "71";
-    } else {
-      this.filtercharity = null;
-    }
+    // if (this.fctoggle) {
+    //   this.filtercharity = "71";
+    // } else {
+    //   this.filtercharity = null;
+    // }
   }
 
   fcotoggleswitch() {
     if (this.fcotoggle) {
       this.filtercommunity = "70";
     } else {
-      this.filtercommunity = null;
+      this.filtercommunity = "null";
     }
   }
 
@@ -91,7 +99,7 @@ export class CalendarPage {
 
   openPost(post) {
     console.log('hit');
-    this.nav.push(Post, {
+    this.nav.push(Event, {
       post: post
     });
   }

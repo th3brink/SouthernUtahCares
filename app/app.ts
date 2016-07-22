@@ -15,19 +15,24 @@ import {CalendarService} from './providers/calendar-service/calendar-service';
   templateUrl: 'build/app.html',
   providers: [HTTP_PROVIDERS]
 })
-class MyApp {
+export class MyApp {
   @ViewChild(Nav) nav: Nav;
+  
 
   // make HelloIonicPage the root (or first) page
   rootPage: any = HomePage;
   pages: Array<{title: string, component: any}>;
+  // public filtercharity = '71'
 
   constructor(
     private platform: Platform,
     private menu: MenuController,
     public calendarService: CalendarService
+    
+  
   ) {
     this.initializeApp();
+    // calendarService.fctoggled.subscribe(filtercharity => this.filtercharity = filtercharity);
 
     // set our app's pages
     this.pages = [
@@ -54,7 +59,11 @@ class MyApp {
     // navigate to the new page if it is not the current page
     this.nav.setRoot(page.component);
   }
+
+
 }
+
+
 
 ionicBootstrap(MyApp, [
   CalendarService

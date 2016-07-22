@@ -1,6 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import * as Rx from 'rxjs/Rx';
+import {Subject} from 'rxjs/Subject';
+import {Observable} from 'rxjs/Observable';
 
 
 
@@ -10,7 +13,7 @@ export class CalendarService {
   test: any;
   public currentevents: any;
   public date: any;
-  public filtercharity: any;
+  
   public fctoggle: any;
   public filtercommunity: any;
   public fcotoggle: any;
@@ -18,6 +21,10 @@ export class CalendarService {
   public fcltoggle: any;
   public filterarts: any;
   public fatoggle: any;
+  public filtercharity: any;
+
+  private fctoggled = new Subject<string>();
+  filtercharity$ = this.fctoggled.asObservable();
 
 
   constructor(private http: Http) {
@@ -25,7 +32,7 @@ export class CalendarService {
     this.data = null;
     this.test = "yea it worked";
     this.date = new Date();
-    this.filtercharity = "71";
+    // this.filtercharity$ = this.fctoggled.asObservable();
     this.filtercommunity = "70";
     this.filterclasses = "90";
     this.filterarts = "66";
@@ -33,14 +40,18 @@ export class CalendarService {
     this.fcotoggle = "true";
     this.fcltoggle = "true";
     this.fatoggle = "true";
+    this.filtercharity = '71';
+    this.fctoggled.next(this.filtercharity)
+    console.log(this.filtercharity);
   }
 
   fctoggleswitch() {
     if (this.fctoggle) {
       this.filtercharity = "71";
     } else {
-      this.filtercharity = null;
+      this.filtercharity = "0";
     }
+    this.fctoggled.next(this.filtercharity)
     console.log(this.filtercharity);
   }
 

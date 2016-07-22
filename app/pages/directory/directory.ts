@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Http} from '@angular/http';
 import {Inject} from '@angular/core'
 import {NavController, NavParams} from 'ionic-angular';
-import {Post} from '../post/post';
+import {Listing} from '../listing/listing';
 import {DirectoryService} from '../../providers/directory-service/directory-service';
 
 
@@ -27,7 +27,7 @@ loadPosts(){
 
 openPost(post) {
   console.log('hit');
-    this.nav.push(Post, {
+    this.nav.push(Listing, {
       post: post
     });
     }
