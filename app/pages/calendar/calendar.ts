@@ -17,7 +17,7 @@ export class CalendarPage {
   public posts: any;
   public currentevents: any;
   public today: any;
-  @Input() filtercharity: any;
+  public filtercharity: string = '';
   public fctoggle: any;
   public filtercommunity: any;
   public fcotoggle: any;
@@ -27,12 +27,18 @@ export class CalendarPage {
   public fatoggle: any;
   public month: any;
   public day: any;
-subscription:Subscription;
+  public todaydate: any;
+  
 
   constructor(public calendarService: CalendarService, private nav: NavController, navParams: NavParams) {
 
+    calendarService.subscribe((data)=>{
+      this.filtercharity = data;
+    });
+console.log(this.filtercharity);
     this.today = new Date();
-    // this.filtercharity = "71";
+    this.todaydate = this.today.setHours(0,0,0,0);
+    this.filtercharity = "71";
     this.filtercommunity = "70";
     this.filterclasses = "90";
     this.filterarts = "66";
@@ -44,18 +50,18 @@ subscription:Subscription;
     this.month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
     this.day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
-calendarService.filtercharity$.subscribe(filtercharity => this.filtercharity = filtercharity);
+// calendarService.filtercharity$.subscribe(filtercharity => this.filtercharity = filtercharity);
 }
-  fctoggleswitch(filtercharity) {
-    this.filtercharity = filtercharity;
-    console.log(this.filtercharity);
+  // fctoggleswitch(data) {
+  //   this.filtercharity = data;
+  //   console.log(this.filtercharity);
 
     // if (this.fctoggle) {
     //   this.filtercharity = "71";
     // } else {
     //   this.filtercharity = null;
     // }
-  }
+  // }
 
   fcotoggleswitch() {
     if (this.fcotoggle) {
@@ -109,9 +115,27 @@ calendarService.filtercharity$.subscribe(filtercharity => this.filtercharity = f
   }
 
   headerDate(arr, i) {
-    // console.log(i);
-    // return true;
-    if (arr[i].start.getDate() !== arr[i-1].start.getDate() || arr[i].start.getMonth() !== arr[i-1].start.getMonth()) {
+    var findCard = true;
+    var x = 1;
+    while (findCard == true) { 
+      if (arr[i-x].term_taxonomy_id==this.filtercharity || 
+      arr[i-x].term_taxonomy_id==this.filtercommunity || 
+      arr[i-x].term_taxonomy_id==this.filterclasses ||
+      arr[i-x].term_taxonomy_id==this.filterarts) {
+        findCard = false;
+      } else {
+        x++;
+      }
+    }
+
+    if ( 
+       (arr[i].term_taxonomy_id==this.filtercharity || 
+       arr[i].term_taxonomy_id==this.filtercommunity || 
+       arr[i].term_taxonomy_id==this.filterclasses ||
+       arr[i].term_taxonomy_id==this.filterarts) && 
+       (arr[i].start.getDate() !== arr[i-x].start.getDate() || 
+       arr[i].start.getMonth() !== arr[i-x].start.getMonth())
+       ) {
     return true;
     } else {
       return false;

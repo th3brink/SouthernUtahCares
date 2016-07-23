@@ -2,7 +2,7 @@ import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import * as Rx from 'rxjs/Rx';
-import {Subject} from 'rxjs/Subject';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
 
 
@@ -22,9 +22,10 @@ export class CalendarService {
   public filterarts: any;
   public fatoggle: any;
   public filtercharity: any;
+  private subList: Array<any> = [];
 
-  private fctoggled = new Subject<string>();
-  filtercharity$ = this.fctoggled.asObservable();
+  // public fctoggled = new BehaviorSubject<string>('71');
+  // public filtercharity$ = this.fctoggled.asObservable();
 
 
   constructor(private http: Http) {
@@ -41,18 +42,29 @@ export class CalendarService {
     this.fcltoggle = "true";
     this.fatoggle = "true";
     this.filtercharity = '71';
-    this.fctoggled.next(this.filtercharity)
-    console.log(this.filtercharity);
+    // this.fctoggled.next(this.filtercharity)
   }
 
+  subscribe(cb: any) {
+    console.log(cb);
+    if (cb) this.subList.push(cb);
+  }
+
+  publish(data: any) {
+          
+         this.subList.forEach((cb: any, i)=>{
+             cb(data);
+         });
+  }
+  
   fctoggleswitch() {
     if (this.fctoggle) {
       this.filtercharity = "71";
     } else {
       this.filtercharity = "0";
     }
-    this.fctoggled.next(this.filtercharity)
-    console.log(this.filtercharity);
+    this.publish(this.filtercharity);
+    // cb(this.filtercharity);
   }
 
   fcotoggleswitch() {
@@ -98,6 +110,7 @@ export class CalendarService {
   organize(data) {
     
     var date = new Date();
+    date = date.setHours(0,0,0,0);
     // this.data.forEach(function (arrayItem) {
     //   arrayItem.start = new Date(arrayItem.start * 1000);
     // });
@@ -116,7 +129,7 @@ export class CalendarService {
           var strSec = time.substr(22, 2);
 
           var oDate = new Date(strYear, strMonth, strDay, strHour, strMin, strSec)
-          if (oDate >= date) {
+          if (oDate.getTime() >= date) {
           var newObject = Object.assign({}, arrayItem);
           newObject.start = oDate;
           data.push(newObject);
