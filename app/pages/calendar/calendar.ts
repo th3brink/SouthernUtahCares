@@ -33,12 +33,13 @@ export class CalendarPage {
   constructor(public calendarService: CalendarService, private nav: NavController, navParams: NavParams) {
 
     calendarService.subscribe((data)=>{
+      console.log('sub text ', data)
       this.filtercharity = data;
     });
 console.log(this.filtercharity);
     this.today = new Date();
     this.todaydate = this.today.setHours(0,0,0,0);
-    this.filtercharity = "71";
+    // this.filtercharity = "0";
     this.filtercommunity = "70";
     this.filterclasses = "90";
     this.filterarts = "66";
@@ -129,12 +130,12 @@ console.log(this.filtercharity);
     }
 
     if ( 
-       (arr[i].term_taxonomy_id==this.filtercharity || 
-       arr[i].term_taxonomy_id==this.filtercommunity || 
-       arr[i].term_taxonomy_id==this.filterclasses ||
-       arr[i].term_taxonomy_id==this.filterarts) && 
-       (arr[i].start.getDate() !== arr[i-x].start.getDate() || 
-       arr[i].start.getMonth() !== arr[i-x].start.getMonth())
+      //  (arr[i].term_taxonomy_id==this.filtercharity || 
+      //  arr[i].term_taxonomy_id==this.filtercommunity || 
+      //  arr[i].term_taxonomy_id==this.filterclasses ||
+      //  arr[i].term_taxonomy_id==this.filterarts) && 
+       arr[i].start.getDate() !== arr[i-x].start.getDate() || 
+       arr[i].start.getMonth() !== arr[i-x].start.getMonth()
        ) {
     return true;
     } else {

@@ -29,7 +29,12 @@
   </ion-item>
 
   <ion-list *ngFor="let post of posts; let i = index" (click)="openPost(post)">
-    <ion-card *ngIf="post.start.getTime() >= today.getTime() && headerDate(posts, i)">
+    <ion-card *ngIf="post.start.getTime() >= today.getTime() && 
+      (post.term_taxonomy_id==filtercharity || 
+      post.term_taxonomy_id==filtercommunity || 
+      post.term_taxonomy_id==filterclasses || 
+      post.term_taxonomy_id==filterarts ) &&
+      headerDate(posts, i)">
       <div class="headercarddate" >{{month[post.start.getMonth()]}} {{post.start.getDate()}} ( {{day[post.start.getDay()]}} )</div>
     </ion-card>
     <ion-card *ngIf="post.start.getTime() >= today.getTime() && 

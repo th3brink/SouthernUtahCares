@@ -11,12 +11,15 @@ import {PhoneBookPage} from './pages/phonebook/phonebook';
 import {CalendarService} from './providers/calendar-service/calendar-service';
 
 
+
 @Component({
   templateUrl: 'build/app.html',
   providers: [HTTP_PROVIDERS]
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
+  public filtercharity: any;
+  public fctoggle: any;
   
 
   // make HelloIonicPage the root (or first) page
@@ -58,7 +61,15 @@ export class MyApp {
     // navigate to the new page if it is not the current page
     this.nav.setRoot(page.component);
   }
-
+fctoggleswitch() {
+    if (this.fctoggle) {
+      this.filtercharity = "71";
+    } else {
+      this.filtercharity = "0";
+    }
+    console.log('toggled', this.filtercharity)
+    this.calendarService.publish(this.filtercharity);
+}
 
 }
 

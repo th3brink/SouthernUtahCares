@@ -22,7 +22,7 @@ export class CalendarService {
   public filterarts: any;
   public fatoggle: any;
   public filtercharity: any;
-  private subList: Array<any> = [];
+  public subList: Array<any> = [];
 
   // public fctoggled = new BehaviorSubject<string>('71');
   // public filtercharity$ = this.fctoggled.asObservable();
@@ -46,12 +46,12 @@ export class CalendarService {
   }
 
   subscribe(cb: any) {
-    console.log(cb);
+    console.log('searched ', cb);
     if (cb) this.subList.push(cb);
   }
 
   publish(data: any) {
-          
+          console.log('published ', data)
          this.subList.forEach((cb: any, i)=>{
              cb(data);
          });
@@ -110,7 +110,7 @@ export class CalendarService {
   organize(data) {
     
     var date = new Date();
-    date = date.setHours(0,0,0,0);
+    var date2 = date.setHours(0,0,0,0);
     // this.data.forEach(function (arrayItem) {
     //   arrayItem.start = new Date(arrayItem.start * 1000);
     // });
@@ -129,7 +129,7 @@ export class CalendarService {
           var strSec = time.substr(22, 2);
 
           var oDate = new Date(strYear, strMonth, strDay, strHour, strMin, strSec)
-          if (oDate.getTime() >= date) {
+          if (oDate.getTime() >= date2) {
           var newObject = Object.assign({}, arrayItem);
           newObject.start = oDate;
           data.push(newObject);
