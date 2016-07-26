@@ -11,7 +11,7 @@ import {CalendarService} from '../../providers/calendar-service/calendar-service
 @Component({
   templateUrl: 'build/pages/calendar/calendar.html',
   // directives: [MyApp],
-  providers: [CalendarService],
+  providers: [],
 })
 export class CalendarPage {
   public posts: any;
